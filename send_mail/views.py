@@ -2,4 +2,4 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 def index(request):
-    return HttpResponse('<h3>Тест джанго</h3>')
+    return HttpResponse('<h3>Сторінка view_mail</h3>')
