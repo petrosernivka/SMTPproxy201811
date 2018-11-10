@@ -1,3 +1,4 @@
 from django.contrib import admin
+from view_mail.models import Mails
 
-# Register your models here.
+admin.site.register(Mails)
