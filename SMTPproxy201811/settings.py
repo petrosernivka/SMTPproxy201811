@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'mainApp',
     'send_mail',
+    'view_mail',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
