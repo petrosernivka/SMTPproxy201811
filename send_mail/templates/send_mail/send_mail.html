@@ -32,15 +32,15 @@
             <div class="row">
               <div class="form-group col-sm-7">
                 <label for="card-holder">Мій e-mail</label>
-                <input id="card-holder" type="text" class="form-control" placeholder="Мій e-mail" aria-label="Мій e-mail" aria-describedby="basic-addon1">
+                <input id="card-holder" type="text" class="form-control" placeholder="Мій e-mail" aria-label="Мій e-mail" aria-describedby="basic-addon1" required>
               </div>
               <div class="form-group col-sm-5">
                 <label for="cvc">Пароль</label>
-                <input id="cvc" type="text" class="form-control" placeholder="Пароль" aria-label="Пароль" aria-describedby="basic-addon1">
+                <input id="cvc" type="text" class="form-control" placeholder="Пароль" aria-label="Пароль" aria-describedby="basic-addon1" required>
               </div>
               <div class="form-group col-sm-7">
                 <label for="card-number">Отримувач</label>
-                <input id="card-number" type="text" class="form-control" placeholder="E-mail отримувача" aria-label="E-mail отримувача" aria-describedby="basic-addon1">
+                <input id="card-number" type="text" class="form-control" placeholder="E-mail отримувача" aria-label="E-mail отримувача" aria-describedby="basic-addon1" required>
               </div>
               <div class="form-group col-sm-12">
                 <label for="card-number">Тема листа</label>
@@ -48,7 +48,7 @@
               </div>
               <div class="form-group col-sm-12">
                 <label for="message">Текст листа</label>
-                <textarea id="message" class="form-control" rows="7" placeholder="Введіть Ваше повідомлення" required></textarea>
+                <textarea id="message" class="form-control" rows="7" placeholder="Введіть Ваше повідомлення"></textarea>
               </div>
               <div class="form-group col-sm-12">
                 <label for="card-number">Режим відправки</label>
@@ -71,9 +71,12 @@
                   </label>
                 </div>
               </div>
-              <div class="form-group col-sm-12">
+              <!-- <div class="form-group col-sm-12">
                 <button type="button" class="btn btn-primary btn-block">Відправити</button>
-              </div>
+              </div> -->
+              <form class="form-group col-sm-12" action = "send" method = "POST">
+                <a href="send" class="btn btn-primary btn-block" id="send" type="submit" name="send">Відправити</a>
+              </form>
             </div>
           </div>
         </form>
