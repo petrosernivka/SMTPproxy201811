@@ -1,7 +1,69 @@
-{% extends "mainApp/wrapper.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  {% load staticfiles %}
+  <link rel="stylesheet" href="{% static 'css/payment.css' %}">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+  <title>SMTP proxy</title>
 
-{% block content %}
-<p>Сторінка send_mail</p>
-
-{% include "mainApp/includes/incl1_html.html" %}
-{% endblock %}
+</head>
+<body>
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Це SMTP proxy і він готовий до роботи))</h1>
+      <p>
+        <a href="/" class="btn btn-success btn-lg">Головна сторінка</a>
+        <a href="/send_mail" class="btn btn-primary btn-lg">Відправити e-mail</a>
+        <a href="/view_mail" class="btn btn-info btn-lg">Історія відправлень</a>
+      </p>
+    </div>
+  </div>
+  <main class="page payment-page">
+    <section class="payment-form dark">
+      <div class="container">
+        <form>
+          <div class="card-details">
+            <h3 class="title">Відправлення e-mail</h3>
+            <div class="row">
+              <div class="form-group col-sm-7">
+                <label for="card-holder">Мій e-mail</label>
+                <input id="card-holder" type="text" class="form-control" placeholder="Мій e-mail" aria-label="Мій e-mail" aria-describedby="basic-addon1">
+              </div>
+              <div class="form-group col-sm-5">
+                <label for="">Expiration Date</label>
+                <div class="input-group expiration-date">
+                  <input type="text" class="form-control" placeholder="MM" aria-label="MM" aria-describedby="basic-addon1">
+                  <span class="date-separator">/</span>
+                  <input type="text" class="form-control" placeholder="YY" aria-label="YY" aria-describedby="basic-addon1">
+                </div>
+              </div>
+              <div class="form-group col-sm-8">
+                <label for="card-number">Отримувач</label>
+                <input id="card-number" type="text" class="form-control" placeholder="E-mail отримувача" aria-label="E-mail отримувача" aria-describedby="basic-addon1">
+              </div>
+              <div class="form-group col-sm-4">
+                <label for="cvc">CVC</label>
+                <input id="cvc" type="text" class="form-control" placeholder="CVC" aria-label="Card Holder" aria-describedby="basic-addon1">
+              </div>
+              <div class="form-group col-sm-12">
+                <button type="button" class="btn btn-primary btn-block">Proceed</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+  <div class="container">
+    <hr>
+    &copy; Всі права захищені ;)
+  </div>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
