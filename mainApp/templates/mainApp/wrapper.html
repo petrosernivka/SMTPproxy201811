@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <title>SMTP proxy</title>
   {% load staticfiles %}
-  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"
-  type="text/css">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/payment.css' %}">
 </head>
 <body>
   <div class="jumbotron">
@@ -20,6 +22,8 @@
       </p>
     </div>
   </div>
+  {% block content %}
+  {% endblock %}
   <div class="container">
     <hr>
     &copy; Всі права захищені ;)
