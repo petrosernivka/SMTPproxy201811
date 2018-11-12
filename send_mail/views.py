@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from django.template import Context
 
-def index(request):
+def send_mail(request):
     import smtplib
     from email.mime.text import MIMEText
     from email.mime.multipart import MIMEMultipart
@@ -36,5 +36,4 @@ def index(request):
     server.sendmail(sender_email_address, receiver_email_address, email_content)
     server.quit()
 
-    print('Відправлено!!!')
     return render(request, 'send_mail/send_mail.html')
