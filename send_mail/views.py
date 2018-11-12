@@ -9,8 +9,12 @@ def index(request):
     from email.mime.multipart import MIMEMultipart
     from email.mime.base import MIMEBase
     from email import encoders
+    import cgi
 
-    sender_email_address = 'donkixot21@gmail.com'
+    form = cgi.FieldStorage()
+    sender_email_address = form.getfirst("sender_email_address", "donkixot21@gmail.com")
+
+    # sender_email_address = 'donkixot21@gmail.com'
     sender_email_password = 'dondon-x2'
     receiver_email_address = 'p.sernivka@gmail.com'
 
@@ -31,4 +35,6 @@ def index(request):
 
     server.sendmail(sender_email_address, receiver_email_address, email_content)
     server.quit()
+
+    print('Відправлено!!!')
     return render(request, 'send_mail/send_mail.html')
