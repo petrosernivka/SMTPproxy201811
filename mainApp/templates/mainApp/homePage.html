@@ -1,59 +1,7 @@
 {% extends "mainApp/wrapper.html" %}
 
 {% block content %}
-  <main class="page payment-page">
-    <section class="payment-form dark">
-      <div class="container">
-        <form action="/views.py" method="POST">
-          {% csrf_token %}
-          <div class="card-details">
-            <h3 class="title">Відправлення e-mail</h3>
-            <div class="row">
-              <div class="form-group col-sm-7">
-                <label for="sender_email_address">Мій e-mail</label>
-                <input  name="sender_email_address" id="sender_email_address" type="text" class="form-control" placeholder="Мій e-mail" aria-label="Мій e-mail" aria-describedby="basic-addon1" required>
-              </div>
-              <div class="form-group col-sm-5">
-                <label for="cvc">Пароль</label>
-                <input id="cvc" type="text" class="form-control" placeholder="Пароль" aria-label="Пароль" aria-describedby="basic-addon1" required>
-              </div>
-              <div class="form-group col-sm-7">
-                <label for="card-number">Отримувач</label>
-                <input id="card-number" type="text" class="form-control" placeholder="E-mail отримувача" aria-label="E-mail отримувача" aria-describedby="basic-addon1" required>
-              </div>
-              <div class="form-group col-sm-12">
-                <label for="card-number">Тема листа</label>
-                <input id="card-number" type="text" class="form-control" placeholder="Тема листа" aria-label="Тема листа" aria-describedby="basic-addon1">
-              </div>
-              <div class="form-group col-sm-12">
-                <label for="message">Текст листа</label>
-                <textarea id="message" class="form-control" rows="7" placeholder="Введіть Ваше повідомлення"></textarea>
-              </div>
-              <div class="form-group col-sm-12">
-                <label for="card-number">Режим відправки</label>
-                <div class="radio">
-                  <label>
-                    <input type="radio" name="optionsRadios" id="radio1" value="option1" checked>
-                    зберігати в базу і пересилати далі
-                  </label>
-                </div>
-                <div class="radio">
-                  <label>
-                    <input type="radio" name="optionsRadios" id="radio2" value="option2">
-                    зберігати в базу і пересилати на задані email, замість реальних отримувачів
-                  </label>
-                </div>
-                <div class="radio disabled">
-                  <label>
-                    <input type="radio" name="optionsRadios" id="radio3" value="option3">
-                    зберігати в базу і блокувати подальшу передачу
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-    </section>
-  </main>
+  <div class="container col-sm-6">
+    <h2>Це SMTP proxy і він готовий до роботи))</h2>
+  </div>
 {% endblock %}
