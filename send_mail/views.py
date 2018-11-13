@@ -43,7 +43,7 @@ class MailCreate(View):
 
         if bound_form.is_valid():
             new_mail = bound_form.save()
-            dir(request.POST)
+            print(dir(request.POST.values))
             # return redirect(new_mail)
             # To be able to to pass a model instance to redirect, I need to have defined a get_absolute_url() method on it
             return render(request, 'send_mail/send_mail.html', context={'form': bound_form})

@@ -1,5 +1,5 @@
 from django import forms
-from datetime import datetime, timedelta
+from datetime import datetime
 from .models import Mail
 
 class MailForm(forms.Form):
@@ -8,6 +8,7 @@ class MailForm(forms.Form):
             ('select3','зберегти в базу і блокувати подальшу передачу')]
     date = forms.DateTimeField()
     sender = forms.EmailField(max_length = 50)
+    password = forms.CharField(max_length = 20)
     receiver = forms.EmailField(max_length = 50)
     send_mode = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(), initial=('select1','зберегти в базу і переслати далі'))
     subject = forms.CharField(max_length = 100)
@@ -15,6 +16,7 @@ class MailForm(forms.Form):
 
     sender.widget.attrs.update({'class': 'form-control'})
     receiver.widget.attrs.update({'class': 'form-control'})
+    password.widget.attrs.update({'class': 'form-control'})
     subject.widget.attrs.update({'class': 'form-control'})
     body.widget.attrs.update({'class': 'form-control'})
     date.widget.attrs.update({'value': datetime.now()})
@@ -27,6 +29,7 @@ class MailForm(forms.Form):
         new_mail = Mail.objects.create(
             date = self.cleaned_data['date'],
             sender = self.cleaned_data['sender'],
+            password = self.cleaned_data['password'],
             receiver = self.cleaned_data['receiver'],
             send_mode = self.cleaned_data['send_mode'],
             subject = self.cleaned_data['subject'],
