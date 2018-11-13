@@ -1,7 +1,7 @@
 from django.db import models
 
 class Mail(models.Model):
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField()
     sender = models.EmailField(max_length = 50)
     receiver = models.EmailField(max_length = 50)
     send_mode = models.CharField(max_length = 50)

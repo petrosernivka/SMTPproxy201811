@@ -1,5 +1,5 @@
 from django import forms
-from datetime import datetime
+from datetime import datetime, timedelta
 from .models import Mail
 
 class MailForm(forms.Form):
@@ -18,6 +18,10 @@ class MailForm(forms.Form):
     subject.widget.attrs.update({'class': 'form-control'})
     body.widget.attrs.update({'class': 'form-control'})
     date.widget.attrs.update({'value': datetime.now()})
+
+    def clean_date(self):
+        new_date = self.cleaned_data['date']
+        return new_date
 
     def save(self):
         new_mail = Mail.objects.create(
