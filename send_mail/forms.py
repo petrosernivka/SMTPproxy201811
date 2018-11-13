@@ -19,7 +19,7 @@ class MailForm(forms.Form):
     password.widget.attrs.update({'class': 'form-control'})
     subject.widget.attrs.update({'class': 'form-control'})
     body.widget.attrs.update({'class': 'form-control'})
-    date.widget.attrs.update({'value': datetime.now()})
+    date.widget.attrs.update({'value': datetime.now(), 'style': 'visibility:hidden'})
 
     def clean_date(self):
         new_date = self.cleaned_data['date']
