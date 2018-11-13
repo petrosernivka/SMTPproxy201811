@@ -5,18 +5,12 @@ from django.template import Context
 from django.views.generic import View
 from .forms import MailForm
 
-def send_mail_real(request):
-    import smtplib
-    from email.mime.text import MIMEText
-    from email.mime.multipart import MIMEMultipart
-    from email.mime.base import MIMEBase
-    from email import encoders
-    import cgi
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
-    form = cgi.FieldStorage()
-    sender_email_address = form.getfirst("sender_email_address", "donkixot21@gmail.com")
-
-    # sender_email_address = 'donkixot21@gmail.com'
+def send_mail_real():
+    sender_email_address = 'donkixot21@gmail.com'
     sender_email_password = 'dondon-x2'
     receiver_email_address = 'p.sernivka@gmail.com'
 
@@ -49,6 +43,7 @@ class MailCreate(View):
 
         if bound_form.is_valid():
             new_mail = bound_form.save()
-            return redirect(new_mail)
+            # return redirect(new_mail)
+            return render(request, 'send_mail/send_mail.html', context={'form': bound_form})
 
         return render(request, 'send_mail/send_mail.html', context={'form': bound_form})
