@@ -9,27 +9,21 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-def send_mail_real():
-    sender_email_address = 'donkixot21@gmail.com'
-    sender_email_password = 'dondon-x2'
-    receiver_email_address = 'p.sernivka@gmail.com'
-
-    email_subject_line = 'Sample Python Email'
-
+def send_mail_real(m):
     msg = MIMEMultipart()
-    msg['From'] = sender_email_address
-    msg['To'] = receiver_email_address
-    msg['Subject'] = email_subject_line
 
-    email_body = 'Hello World. This is a Python Email using SMTP server with Outlook service.'
-    msg.attach(MIMEText(email_body, 'plain'))
+    msg['From'] = m.cleaned_data['sender']
+    msg['To'] = m.cleaned_data['receiver']
+    msg['Subject'] = m.cleaned_data['subject']
+    
+    msg.attach(MIMEText(m.cleaned_data['body'], 'plain'))
 
     email_content = msg.as_string()
-    server = smtplib.SMTP('smtp.gmail.com:587')
+    server = smtplib.SMTP('smtp.outlook.com:587')
     server.starttls()
-    server.login(sender_email_address, sender_email_password)
+    server.login(m.cleaned_data['sender'], m.cleaned_data['password'])
 
-    server.sendmail(sender_email_address, receiver_email_address, email_content)
+    server.sendmail(m.cleaned_data['sender'], m.cleaned_data['receiver'], email_content)
     server.quit()
     pass
 
@@ -42,8 +36,8 @@ class MailCreate(View):
         bound_form = MailForm(request.POST)
 
         if bound_form.is_valid():
+            send_mail_real(bound_form)
             new_mail = bound_form.save()
-            print(dir(request.POST.values))
             # return redirect(new_mail)
             # To be able to to pass a model instance to redirect, I need to have defined a get_absolute_url() method on it
             return render(request, 'send_mail/send_mail.html', context={'form': bound_form})
