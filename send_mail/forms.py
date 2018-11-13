@@ -1,13 +1,23 @@
 from django import forms
+from datetime import datetime
 from .models import Mail
 
 class MailForm(forms.Form):
-    date = models.DateTimeField(auto_now_add=True)
-    sender = models.EmailField(max_length = 50)
-    receiver = models.EmailField(max_length = 50)
-    send_mode = models.CharField(max_length = 50)
-    subject = models.CharField(max_length = 100)
-    body = models.TextField()
+    CHOICES=[('select1','зберегти в базу і переслати далі'),
+            ('select2','зберегти в базу, але переслати на інші задані email'),
+            ('select3','зберегти в базу і блокувати подальшу передачу')]
+    date = forms.DateTimeField()
+    sender = forms.EmailField(max_length = 50)
+    receiver = forms.EmailField(max_length = 50)
+    send_mode = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(), initial=('select1','зберегти в базу і переслати далі'))
+    subject = forms.CharField(max_length = 100)
+    body = forms.CharField()
+
+    sender.widget.attrs.update({'class': 'form-control'})
+    receiver.widget.attrs.update({'class': 'form-control'})
+    subject.widget.attrs.update({'class': 'form-control'})
+    body.widget.attrs.update({'class': 'form-control'})
+    date.widget.attrs.update({'value': datetime.now()})
 
     def save(self):
         new_mail = Mail.objects.create(
