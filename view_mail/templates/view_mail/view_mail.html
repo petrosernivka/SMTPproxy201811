@@ -1,7 +1,15 @@
 {% extends "mainApp/wrapper.html" %}
 
 {% block content %}
+  <div class="container">
+    <form class="form-inline">
+      <label class="sr-only" for="inlineFormInputName2">E-mail</label>
+      <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="E-mail">
 
-<p>Сторінка view_mail</p>
+      <label class="sr-only" for="inlineFormInputName3">Password</label>
+      <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName3" placeholder="Password">
 
+      <button type="submit" class="btn btn-primary mb-2">Показати</button>
+    </form>
+  </div>
 {% endblock %}

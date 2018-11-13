@@ -1,0 +1,31 @@
+{% extends "mainApp/wrapper.html" %}
+
+{% block content %}
+  <div class="container">
+    <h2>Відправлені мейли</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Дата / час</th>
+          <th>Відправник</th>
+          <th>Отримувач</th>
+          <th>Режим відправки</th>
+          <th>Тема</th>
+          <th>Текст листа</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for mail in mails %}
+          <tr>
+            <td>{{ mail.date }}</td>
+            <td>{{ mail.sender }}</td>
+            <td>{{ mail.receiver }}</td>
+            <td>{{ mail.send_mode }}</td>
+            <td>{{ mail.subject }}</td>
+            <td>{{ mail.body }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
