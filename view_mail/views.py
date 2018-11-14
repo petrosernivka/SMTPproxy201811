@@ -19,7 +19,7 @@ class MailView(View):
             bound_form.own_err = mail_authent(bound_form)
             if not bound_form.own_err:
                 sender = bound_form.cleaned_data['sender']
-                mails = Mail.objects.filter(sender=sender)
+                mails = Mail.objects.filter(sender=sender).order_by('-date')
                 return render(request, 'view_mail/mail_list.html', context={'mails': mails})
             return render(request, 'view_mail/view_mail.html', context={'form': bound_form})
 
