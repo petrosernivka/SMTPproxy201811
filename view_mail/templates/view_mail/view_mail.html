@@ -5,11 +5,11 @@
     <form action="{% url 'mails_list_url' %}" method="post">
       {% csrf_token %}
       <div class="form-group col-sm-7">
-        <label for="sender_email_address">Мій e-mail</label>
+        <label>Мій e-mail</label>
         {{ form.sender }}
       </div>
       <div class="form-group col-sm-7">
-        <label for="passw">Пароль</label>
+        <label>Пароль</label>
         {{ form.password }}
       </div>
       <div class="form-group col-sm-8">

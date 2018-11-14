@@ -27,8 +27,7 @@ def send_mail_real(m):
             port = line[line.rfind('-') + 1: -2]
     smtp_servers_list.close()
     if not SMTP_server:
-        # return 'SMTP-сервер для Вашого e-mail не знайдений'
-        raise ValidationError('SMTP-сервер для Вашого e-mail не знайдений')
+        return 'SMTP-сервер для Вашого e-mail не знайдений'
 
     email_content = msg.as_string()
     server = smtplib.SMTP(SMTP_server + ':' + port)
@@ -36,8 +35,7 @@ def send_mail_real(m):
     try:
         server.login(m.cleaned_data['sender'], m.cleaned_data['password'])
     except Exception:
-        # return 'Логін або пароль невірний'
-        raise ValidationError('Логін або пароль невірний')
+        return 'Логін або пароль невірний'
 
     server.sendmail(m.cleaned_data['sender'], m.cleaned_data['receiver'], email_content)
     server.quit()
@@ -52,11 +50,12 @@ class MailCreate(View):
         bound_form = MailForm(request.POST)
 
         if bound_form.is_valid():
-            send_mail_real(bound_form)
-            new_mail = bound_form.save()
-            # return redirect(mail_create_url)
-            # To be able to to pass a model instance to redirect, I need to have defined a get_absolute_url() method on it
-            form = MailForm()
-            return render(request, 'send_mail/send_mail.html', context={'form': form})
+            bound_form.own_err = send_mail_real(bound_form)
+            if not bound_form.own_err:
+                new_mail = bound_form.save()
+                # return redirect(mail_create_url)
+                # To be able to to pass a model instance to redirect, I need to have defined a get_absolute_url() method on it
+                form = MailForm()
+                return render(request, 'send_mail/send_mail.html', context={'form': form})
 
         return render(request, 'send_mail/send_mail.html', context={'form': bound_form})
