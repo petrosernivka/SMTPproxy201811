@@ -8,7 +8,7 @@ class MailForm(forms.Form):
             ('select3','зберегти в базу і блокувати подальшу передачу')]
     date = forms.DateTimeField()
     sender = forms.EmailField(max_length = 50)
-    password = forms.CharField(max_length = 20)
+    password = forms.CharField(widget=forms.PasswordInput)
     receiver = forms.EmailField(max_length = 50)
     send_mode = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(), initial=('select1','зберегти в базу і переслати далі'))
     subject = forms.CharField(max_length = 100)
@@ -20,10 +20,6 @@ class MailForm(forms.Form):
     subject.widget.attrs.update({'class': 'form-control'})
     body.widget.attrs.update({'class': 'form-control'})
     date.widget.attrs.update({'value': datetime.now(), 'style': 'visibility:hidden'})
-
-    def clean_date(self):
-        new_date = self.cleaned_data['date']
-        return new_date
 
     def save(self):
         new_mail = Mail.objects.create(

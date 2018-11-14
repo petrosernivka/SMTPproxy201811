@@ -2,14 +2,21 @@
 
 {% block content %}
   <div class="container col-sm-5">
-    <form class="form-inline">
-      <label class="sr-only" for="inlineFormInputName2">E-mail</label>
-      <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="E-mail">
-
-      <label class="sr-only" for="inlineFormInputName3">Password</label>
-      <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName3" placeholder="Password">
-
-      <a href="{% url 'mails_list_url' sender='donkixot21@outlook.com' %}" class="btn btn-primary mb-2">Показати</a>
+    <form action="{% url 'mails_list_url' %}" method="post">
+      {% csrf_token %}
+      <div class="form-group col-sm-7">
+        <label for="sender_email_address">Мій e-mail</label>
+        {{ form.sender }}
+      </div>
+      <div class="form-group col-sm-7">
+        <label for="passw">Пароль</label>
+        {{ form.password }}
+      </div>
+      <div class="form-group col-sm-8">
+        <div>
+          <button class="btn btn-primary" type="submit">Показати</button>
+        </div>
+      </div>
     </form>
   </div>
 {% endblock %}

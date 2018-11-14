@@ -1,8 +1,8 @@
-from django.urls import path, include
-from django.views.generic import ListView, DetailView
+from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('', view_mail, name='view_mail_url'),
-    path('mails/<sender>/', mails_list, name='mails_list_url'),
+    # path('', view_mail, name='view_mail_url'),
+    # path('mails/<sender>/', MailView.as_view(), name='mails_list_url'),
+    path('', MailView.as_view(), name='mails_list_url'),
 ]

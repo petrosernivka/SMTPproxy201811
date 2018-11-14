@@ -9,7 +9,7 @@
 @aol.com-smtp.aol.com-587,
 @comcast.net-smtp.comcast.net-587,
 @gmail.com-smtp.gmail.com-587,
-@outlook.com-smtp.gmail.com-587,
+@outlook.com-smtp.outlook.com-587,
 @gmx.com-smtp.gmx.com-465,
 @live.com-smtp.live.com-587,
 @mail.com-smtp.mail.com-587,

@@ -4,7 +4,7 @@
   <div class="container col-sm-5">
     <form action="{% url 'mail_create_url' %}" method="post">
       {% csrf_token %}
-      <h3 class="title">Відправлення e-mail</h3>
+      <h3 class="title mb-4">Відправлення e-mail</h3>
       <div class="row">
         <div class="form-group col-sm-7">
           <label for="sender_email_address">Мій e-mail</label>
@@ -33,7 +33,7 @@
           <label>Режим відправки</label>
           {{ form.send_mode }}
         </div>
-        <div class="form-group row col-sm-8">
+        <div class="form-group col-sm-8">
           <div>
             <button class="btn btn-primary" type="submit">Відправити</button>
           </div>
