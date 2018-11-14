@@ -11,8 +11,8 @@ class MailForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
     receiver = forms.EmailField(max_length = 50)
     send_mode = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(), initial=('select1','зберегти в базу і переслати далі'))
-    subject = forms.CharField(max_length = 100)
-    body = forms.CharField()
+    subject = forms.CharField(max_length = 100, required=False)
+    body = forms.CharField(required=False)
 
     sender.widget.attrs.update({'class': 'form-control'})
     receiver.widget.attrs.update({'class': 'form-control'})
