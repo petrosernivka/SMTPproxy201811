@@ -20,7 +20,7 @@ def send_mail_check(m):
             SMTP_server = line[line.find('-') + 1: line.rfind('-')]
             port = line[line.rfind('-') + 1: -2]
     smtp_servers_list.close()
-    
+
     if not SMTP_server:
         return 'SMTP-сервер для Вашого e-mail не знайдений'
 
@@ -91,8 +91,10 @@ class MailCreate(View):
                     send_mail_ok(bound_form)
 
                 elif bound_form.cleaned_data['send_mode'] != 'BLOCK':
+                    receiv = bound_form.cleaned_data['receiver']
                     bound_form.cleaned_data['receiver'] = bound_form.cleaned_data['send_mode']
                     send_mail_ok(bound_form)
+                    bound_form.cleaned_data['receiver'] = receiv
 
                 new_mail = bound_form.save()
                 # return redirect(mail_create_url)
