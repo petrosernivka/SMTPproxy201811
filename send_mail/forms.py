@@ -3,14 +3,11 @@ from datetime import datetime
 from .models import Mail
 
 class MailForm(forms.Form):
-    CHOICES=[('select1','зберегти в базу і переслати далі'),
-            ('select2','зберегти в базу, але переслати на інші задані email'),
-            ('select3','зберегти в базу і блокувати подальшу передачу')]
     date = forms.DateTimeField()
     sender = forms.EmailField(max_length = 50)
     password = forms.CharField(widget=forms.PasswordInput)
     receiver = forms.EmailField(max_length = 50)
-    send_mode = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(), initial=('select1','зберегти в базу і переслати далі'))
+    send_mode = forms.CharField(max_length = 50, required=False)
     subject = forms.CharField(max_length = 100, required=False)
     body = forms.CharField(required=False)
 

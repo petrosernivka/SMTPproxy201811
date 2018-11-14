@@ -4,6 +4,7 @@ from django.template.loader import get_template
 from django.template import Context
 from django.views.generic import View
 from .forms import MailForm
+from .models import *
 
 from smtplib import SMTP
 from email.mime.text import MIMEText
@@ -46,17 +47,32 @@ def send_mail_real(m):
     server.quit()
     return 0
 
+def get_send_mode(sender):
+    if Send_rules.objects.get(sender=sender):
+        return Send_rules.objects.get(sender=sender)
+    return Send_rules.objects.get(sender='all@all.all')
+
 class MailCreate(View):
     def get(self, request):
         form = MailForm()
         return render(request, 'send_mail/send_mail.html', context={'form': form})
 
     def post(self, request):
+
+        # print (request.POST.get('send_mode'))
+        # print (bound_form['send_mode'].value())
+        # print (bound_form.data['send_mode'])
+
         bound_form = MailForm(request.POST)
 
         if bound_form.is_valid():
             bound_form.own_err = send_mail_real(bound_form)
             if not bound_form.own_err:
+
+
+                bound_form.cleaned_data['send_mode'] = get_send_mode(sender)
+
+
                 new_mail = bound_form.save()
                 # return redirect(mail_create_url)
                 # To be able to to pass a model instance to redirect, I need to have defined a get_absolute_url() method on it

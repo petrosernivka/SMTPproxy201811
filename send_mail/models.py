@@ -15,7 +15,6 @@ class Mail(models.Model):
 class Send_rules(models.Model):
     sender = models.EmailField(max_length = 50)
     send_mode = models.CharField(max_length = 50)
-    receiver = models.CharField(max_length = 50, blank=True)
 
     def __str__(self):
-        return '{} - {} - {}'.format(self.sender, self.send_mode, self.receiver)
+        return '{} - {}'.format(self.sender, self.send_mode)
