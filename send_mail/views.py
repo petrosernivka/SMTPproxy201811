@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import get_template
 from django.template import Context
 from django.views.generic import View
@@ -27,16 +27,21 @@ def send_mail_real(m):
             port = line[line.rfind('-') + 1: -2]
     smtp_servers_list.close()
     if not SMTP_server:
-        raise Exception('SMTP-сервер для Вашого e-mail не знайдений')
+        # return 'SMTP-сервер для Вашого e-mail не знайдений'
+        raise ValidationError('SMTP-сервер для Вашого e-mail не знайдений')
 
     email_content = msg.as_string()
     server = smtplib.SMTP(SMTP_server + ':' + port)
     server.starttls()
-    server.login(m.cleaned_data['sender'], m.cleaned_data['password'])
+    try:
+        server.login(m.cleaned_data['sender'], m.cleaned_data['password'])
+    except Exception:
+        # return 'Логін або пароль невірний'
+        raise ValidationError('Логін або пароль невірний')
 
     server.sendmail(m.cleaned_data['sender'], m.cleaned_data['receiver'], email_content)
     server.quit()
-    pass
+    return 0
 
 class MailCreate(View):
     def get(self, request):
@@ -49,8 +54,9 @@ class MailCreate(View):
         if bound_form.is_valid():
             send_mail_real(bound_form)
             new_mail = bound_form.save()
-            # return redirect(new_mail)
+            # return redirect(mail_create_url)
             # To be able to to pass a model instance to redirect, I need to have defined a get_absolute_url() method on it
-            return render(request, 'send_mail/send_mail.html', context={'form': bound_form})
+            form = MailForm()
+            return render(request, 'send_mail/send_mail.html', context={'form': form})
 
         return render(request, 'send_mail/send_mail.html', context={'form': bound_form})

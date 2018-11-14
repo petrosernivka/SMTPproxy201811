@@ -17,3 +17,25 @@ class MailView(View):
             sender = bound_form.cleaned_data['sender']
             mails = Mail.objects.filter(sender=sender)
         return render(request, 'view_mail/mail_list.html', context={'mails': mails})
+
+def mail_authent(m):
+    smtp_servers_list = open('smtp_servers.txt')
+    domen = m.cleaned_data['sender'][m.cleaned_data['sender'].find('@'):]
+    SMTP_server = ''
+    for line in smtp_servers_list:
+        if line[:line.find('-')] == domen:
+            SMTP_server = line[line.find('-') + 1: line.rfind('-')]
+            port = line[line.rfind('-') + 1: -2]
+    smtp_servers_list.close()
+    if not SMTP_server:
+        return 'SMTP-сервер для Вашого e-mail не знайдений'
+
+    server = smtplib.SMTP(SMTP_server + ':' + port)
+    server.starttls()
+    try:
+        server.login(m.cleaned_data['sender'], m.cleaned_data['password'])
+    except Exception:
+        return 'Логін або пароль невірний'
+
+    server.quit()
+    return 0
