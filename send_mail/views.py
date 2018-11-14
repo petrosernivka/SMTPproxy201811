@@ -30,7 +30,12 @@ def send_mail_real(m):
         return 'SMTP-сервер для Вашого e-mail не знайдений'
 
     email_content = msg.as_string()
-    server = SMTP(SMTP_server + ':' + port)
+
+    try:
+        server = SMTP(SMTP_server + ':' + port)
+    except Exception:
+        return '''Неможливо створити зв'язок з SMTP-сервером'''
+
     server.starttls()
     try:
         server.login(m.cleaned_data['sender'], m.cleaned_data['password'])

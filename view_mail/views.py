@@ -35,7 +35,10 @@ def mail_authent(m):
     if not SMTP_server:
         return 'SMTP-сервер для Вашого e-mail не знайдений'
 
-    server = SMTP(SMTP_server + ':' + port)
+    try:
+        server = SMTP(SMTP_server + ':' + port)
+    except Exception:
+        return '''Неможливо створити зв'язок з SMTP-сервером'''
     server.starttls()
     try:
         server.login(m.cleaned_data['sender'], m.cleaned_data['password'])
