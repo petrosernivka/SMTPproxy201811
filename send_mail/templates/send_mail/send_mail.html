@@ -4,6 +4,17 @@
   <div class="container col-sm-5">
     <form action="{% url 'mail_create_url' %}" method="post">
       {% csrf_token %}
+
+      <div class="row">
+        <div class="form-group col-sm-12 mb-4">
+          {% if form.success %}
+            <div class="alert alert-success">
+              {{ form.success }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
       <h3 class="title mb-4">Відправлення e-mail</h3>
       <div class="row">
         <div class="form-group col-sm-7">

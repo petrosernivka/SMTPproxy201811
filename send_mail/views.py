@@ -56,6 +56,7 @@ class MailCreate(View):
                 # return redirect(mail_create_url)
                 # To be able to to pass a model instance to redirect, I need to have defined a get_absolute_url() method on it
                 form = MailForm()
+                form.success = 'Лист відправлено!'
                 return render(request, 'send_mail/send_mail.html', context={'form': form})
 
         return render(request, 'send_mail/send_mail.html', context={'form': bound_form})
