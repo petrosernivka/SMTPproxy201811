@@ -12,14 +12,6 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 def send_mail_check(m):
-    msg = MIMEMultipart()
-
-    msg['From'] = m.cleaned_data['sender']
-    msg['To'] = m.cleaned_data['receiver']
-    msg['Subject'] = m.cleaned_data['subject']
-
-    msg.attach(MIMEText(m.cleaned_data['body'], 'plain'))
-
     smtp_servers_list = open('smtp_servers.txt')
     domen = m.cleaned_data['sender'][m.cleaned_data['sender'].find('@'):]
     SMTP_server = ''
@@ -28,10 +20,9 @@ def send_mail_check(m):
             SMTP_server = line[line.find('-') + 1: line.rfind('-')]
             port = line[line.rfind('-') + 1: -2]
     smtp_servers_list.close()
+    
     if not SMTP_server:
         return 'SMTP-сервер для Вашого e-mail не знайдений'
-
-    email_content = msg.as_string()
 
     try:
         server = SMTP(SMTP_server + ':' + port)
