@@ -6,6 +6,8 @@ from django.views.generic import View
 from .forms import MailForm_view
 from send_mail.models import Mail
 
+from smtplib import SMTP
+
 class MailView(View):
     def get(self, request):
         form = MailForm_view()
@@ -14,9 +16,12 @@ class MailView(View):
     def post(self, request):
         bound_form = MailForm_view(request.POST)
         if bound_form.is_valid():
-            sender = bound_form.cleaned_data['sender']
-            mails = Mail.objects.filter(sender=sender)
-        return render(request, 'view_mail/mail_list.html', context={'mails': mails})
+            bound_form.own_err = mail_authent(bound_form)
+            if not bound_form.own_err:
+                sender = bound_form.cleaned_data['sender']
+                mails = Mail.objects.filter(sender=sender)
+                return render(request, 'view_mail/mail_list.html', context={'mails': mails})
+            return render(request, 'view_mail/view_mail.html', context={'form': bound_form})
 
 def mail_authent(m):
     smtp_servers_list = open('smtp_servers.txt')
@@ -30,7 +35,7 @@ def mail_authent(m):
     if not SMTP_server:
         return 'SMTP-сервер для Вашого e-mail не знайдений'
 
-    server = smtplib.SMTP(SMTP_server + ':' + port)
+    server = SMTP(SMTP_server + ':' + port)
     server.starttls()
     try:
         server.login(m.cleaned_data['sender'], m.cleaned_data['password'])

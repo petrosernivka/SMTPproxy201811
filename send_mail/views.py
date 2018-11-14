@@ -5,7 +5,7 @@ from django.template import Context
 from django.views.generic import View
 from .forms import MailForm
 
-import smtplib
+from smtplib import SMTP
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
@@ -30,7 +30,7 @@ def send_mail_real(m):
         return 'SMTP-сервер для Вашого e-mail не знайдений'
 
     email_content = msg.as_string()
-    server = smtplib.SMTP(SMTP_server + ':' + port)
+    server = SMTP(SMTP_server + ':' + port)
     server.starttls()
     try:
         server.login(m.cleaned_data['sender'], m.cleaned_data['password'])
