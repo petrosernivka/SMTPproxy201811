@@ -11,3 +11,11 @@ class Mail(models.Model):
 
     def __str__(self):
         return '{} - {} - {}'.format(self.date.strftime('%Y/%m/%d - %H:%M:%S'), self.sender, self.receiver)
+
+class Send_rules(models.Model):
+    sender = models.EmailField(max_length = 50)
+    send_mode = models.CharField(max_length = 50)
+    receiver = models.CharField(max_length = 50, blank=True)
+
+    def __str__(self):
+        return '{} - {} - {}'.format(self.sender, self.send_mode, self.receiver)
