@@ -15,8 +15,19 @@ def send_mail_real(m):
     msg['From'] = m.cleaned_data['sender']
     msg['To'] = m.cleaned_data['receiver']
     msg['Subject'] = m.cleaned_data['subject']
-    
+
     msg.attach(MIMEText(m.cleaned_data['body'], 'plain'))
+
+    smtp_servers_list = open('smtp_servers.txt')
+    domen = m.cleaned_data['sender'][m.cleaned_data['sender'].find('@'):]
+    server = ''
+    for line in smtp_servers_list:
+        if line[:line.find('-')] == domen:
+            server = line[line.find('-') + 1: line.rfind('-')]
+            port = line[line.rfind('-') + 1: -2]
+    smtp_servers_list.close()
+    if not server:
+        raise Exception('SMTP-сервер для Вашого e-mail не знайдений')
 
     email_content = msg.as_string()
     server = smtplib.SMTP('smtp.outlook.com:587')
